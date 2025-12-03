@@ -1,127 +1,920 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Metric Time & Date System</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-      margin: 0;
-      padding: 0;
-      background: #f9f9f9;
-      color: #333;
-    }
-    header {
-      background: #333;
-      color: #fff;
-      padding: 2rem;
-      text-align: center;
-    }
-    section {
-      padding: 2rem;
-      max-width: 900px;
-      margin: auto;
-    }
-    h1, h2, h3 {
-      color: #222;
-    }
-    ul {
-      padding-left: 20px;
-    }
-    footer {
-      background: #eee;
-      padding: 1rem;
-      text-align: center;
-      font-size: 0.9rem;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metric Time - A Modern Timekeeping System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00d9ff;
+            --primary-dark: #00a8cc;
+            --secondary: #0a1929;
+            --text: #1a1a1a;
+            --text-light: #666666;
+            --bg: #ffffff;
+            --bg-light: #f5f5f5;
+            --border: #e0e0e0;
+            --success: #28a745;
+            --warning: #ff9800;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: var(--text);
+            background-color: var(--bg);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--secondary) 0%, #1a2a3a 100%);
+            color: white;
+            padding: 2rem 0;
+            border-bottom: 2px solid var(--primary);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        header h1 {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: -1px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+        }
+
+        nav {
+            background: var(--bg-light);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 0;
+            position: sticky;
+            top: 80px;
+            z-index: 99;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            padding: 0.5rem 0;
+            border-bottom: 2px solid transparent;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        main {
+            padding: 3rem 0;
+        }
+
+        section {
+            margin-bottom: 4rem;
+            scroll-margin-top: 180px;
+        }
+
+        h2 {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+            border-left: 4px solid var(--primary);
+            padding-left: 1rem;
+        }
+
+        h3 {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(0, 217, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .card h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .card p {
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        /* Live Display Section */
+        .live-display {
+            background: linear-gradient(135deg, var(--secondary) 0%, #1a2a3a 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            text-align: center;
+            border: 2px solid var(--primary);
+        }
+
+        .time-display {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .time-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid var(--primary);
+        }
+
+        .time-box h4 {
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .time-value {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .time-label {
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+
+        /* Converter Section */
+        .converter {
+            background: var(--bg-light);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .converter-grid {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 1.5rem;
+            align-items: flex-end;
+            margin-bottom: 2rem;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-group label {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--secondary);
+            font-family: 'IBM Plex Sans', sans-serif;
+        }
+
+        .input-group input {
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 217, 255, 0.1);
+        }
+
+        .converter-arrow {
+            color: var(--primary);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .result-box {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 6px;
+            border-left: 4px solid var(--primary);
+            margin-top: 1rem;
+        }
+
+        .result-box p {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 1.1rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Calendar Section */
+        .calendar-container {
+            background: var(--bg-light);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            overflow-x: auto;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 1rem;
+            min-width: 1000px;
+        }
+
+        .month-column {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .month-header {
+            background: var(--primary);
+            color: var(--secondary);
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-size: 0.9rem;
+        }
+
+        .month-days {
+            padding: 0.5rem;
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 0.25rem;
+        }
+
+        .day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        .day.work {
+            background: #f0f0f0;
+            color: var(--text);
+        }
+
+        .day.rest {
+            background: var(--primary);
+            color: white;
+        }
+
+        .day:hover {
+            transform: scale(1.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Education Section */
+        .education-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .education-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 2rem;
+        }
+
+        .education-card h4 {
+            font-family: 'IBM Plex Mono', monospace;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .education-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* Comparison Table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+        }
+
+        .comparison-table th {
+            background: var(--secondary);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-family: 'IBM Plex Sans', sans-serif;
+            font-weight: 600;
+        }
+
+        .comparison-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+            font-family: 'IBM Plex Mono', monospace;
+        }
+
+        .comparison-table tr:hover {
+            background: var(--bg-light);
+        }
+
+        /* Button Styles */
+        button {
+            background: var(--primary);
+            color: var(--secondary);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'IBM Plex Sans', sans-serif;
+        }
+
+        button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 217, 255, 0.2);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--secondary);
+            color: white;
+            padding: 2rem 0;
+            margin-top: 4rem;
+            border-top: 2px solid var(--primary);
+            text-align: center;
+        }
+
+        footer p {
+            opacity: 0.9;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .time-display {
+                grid-template-columns: 1fr;
+            }
+
+            .converter-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .converter-arrow {
+                transform: rotate(90deg);
+                margin: 0.5rem 0;
+            }
+
+            .calendar-grid {
+                min-width: 100%;
+                grid-template-columns: repeat(5, 1fr);
+            }
+
+            .month-column {
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Utility Classes */
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-2 {
+            margin-top: 1rem;
+        }
+
+        .mt-4 {
+            margin-top: 2rem;
+        }
+
+        .mb-2 {
+            margin-bottom: 1rem;
+        }
+
+        .mb-4 {
+            margin-bottom: 2rem;
+        }
+
+        .highlight {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        code {
+            background: var(--bg-light);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.9em;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>Metric Time & Date System</h1>
-    <p>A Simpler, Logical Way to Measure Time</p>
-  </header>
+    <header>
+        <div class="container">
+            <h1>⏱ Metric Time</h1>
+            <p>A modern, decimal-based timekeeping system designed for global coordination and digital simplicity.</p>
+        </div>
+    </header>
 
-  <section>
-    <h2>Why Metric Time?</h2>
-    <p>The Metric Time & Date System reimagines how we measure time using base-10 divisions. It replaces archaic, inconsistent units with a clear, logical framework aligned with natural cycles—the Day and the Year.</p>
+    <nav>
+        <ul>
+            <li><a href="#live">Live Time</a></li>
+            <li><a href="#converter">Converter</a></li>
+            <li><a href="#calendar">Calendar</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#education">Learn</a></li>
+        </ul>
+    </nav>
 
-    <h2>Time Structure</h2>
-    <ul>
-      <li><strong>Day</strong>: 1 full rotation of the Earth</li>
-      <li><strong>10 mHours</strong> per Day</li>
-      <li><strong>100 mMinutes</strong> per mHour</li>
-      <li><strong>100 mSeconds</strong> per mMinute</li>
-    </ul>
-    <p>For example:
-      <ul>
-        <li>Noon = 5.00 mHours</li>
-        <li>9:00 PM = 7.5 mHours</li>
-      </ul>
-    </p>
+    <main class="container">
+        <!-- Live Display Section -->
+        <section id="live">
+            <h2>Current Time</h2>
+            <div class="live-display">
+                <p style="font-size: 1.1rem; margin-bottom: 1rem;">Right now, it's:</p>
+                <div class="time-display">
+                    <div class="time-box">
+                        <h4>Metric Time</h4>
+                        <div class="time-value" id="metricTime">0.00m</div>
+                        <div class="time-label" id="metricDate">Loading...</div>
+                    </div>
+                    <div class="time-box">
+                        <h4>Traditional Time</h4>
+                        <div class="time-value" id="traditionalTime">00:00:00</div>
+                        <div class="time-label" id="traditionalDate">Loading...</div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <h2>Date Structure</h2>
-    <ul>
-      <li><strong>Year</strong>: 1 orbit around the Sun</li>
-      <li><strong>10 mMonths</strong> per Year</li>
-      <li>Each mMonth = 36 days (or 37 in select months to match 365-day solar year)</li>
-      <li>Each mMonth has 6 mWeeks (6-day weeks)</li>
-      <li>Each mWeek = 4 work days + 2 rest days</li>
-    </ul>
+        <!-- Converter Section -->
+        <section id="converter">
+            <h2>Time Converter</h2>
+            <div class="converter">
+                <div class="converter-grid">
+                    <div class="input-group">
+                        <label for="tradInput">Traditional Time (HH:MM:SS)</label>
+                        <input type="text" id="tradInput" placeholder="14:30:00">
+                    </div>
+                    <div class="converter-arrow">⇄</div>
+                    <div class="input-group">
+                        <label for="metricInput">Metric Time (mHours.mMinutes)</label>
+                        <input type="text" id="metricInput" placeholder="6.04m">
+                    </div>
+                </div>
 
-    <h2>mMonth Names</h2>
-    <ol>
-      <li>Renewal</li>
-      <li>Awaken</li>
-      <li>Bloom</li>
-      <li>Thrive</li>
-      <li>Radiate</li>
-      <li>Sustain</li>
-      <li>Gather</li>
-      <li>Reflect</li>
-      <li>Diminish</li>
-      <li>Restore</li>
-    </ol>
+                <div id="conversionResult"></div>
 
-    <h2>Key Benefits</h2>
-    <ul>
-      <li><strong>Simplicity</strong>: No more 24/60/60 conversions. Decimal math is easy and intuitive.</li>
-      <li><strong>Digital Friendly</strong>: Designed for clean integration with computers and programming.</li>
-      <li><strong>Global Consistency</strong>: Aligns human activity with a universal system.</li>
-      <li><strong>Education</strong>: Easier to teach and learn for both children and adults.</li>
-      <li><strong>Work-Life Balance</strong>: 4 days on / 2 days off creates better rhythms and more recovery.</li>
-    </ul>
+                <h3 style="margin-top: 2rem;">Conversion Reference</h3>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Traditional Time</th>
+                            <th>Metric Time</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>00:00:00</td>
+                            <td>0.00m</td>
+                            <td>Midnight</td>
+                        </tr>
+                        <tr>
+                            <td>06:00:00</td>
+                            <td>2.50m</td>
+                            <td>Early Morning</td>
+                        </tr>
+                        <tr>
+                            <td>12:00:00</td>
+                            <td>5.00m</td>
+                            <td>Noon</td>
+                        </tr>
+                        <tr>
+                            <td>18:00:00</td>
+                            <td>7.50m</td>
+                            <td>Evening</td>
+                        </tr>
+                        <tr>
+                            <td>23:59:59</td>
+                            <td>9.99m</td>
+                            <td>Just Before Midnight</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
 
-    <h2>Conversion Examples</h2>
-    <p><strong>Time:</strong></p>
-    <ul>
-      <li>1 mHour = 2.4 conventional hours</li>
-      <li>1 mMinute = 1.44 conventional minutes</li>
-      <li>1 mSecond = 0.864 conventional seconds</li>
-    </ul>
+        <!-- Calendar Section -->
+        <section id="calendar">
+            <h2>Metric Calendar (Year View)</h2>
+            <p style="margin-bottom: 1.5rem; color: var(--text-light);">
+                The metric year is divided into 10 months of 36-37 days each. Each month follows a consistent rhythm of work and rest days.
+            </p>
+            <div class="calendar-container">
+                <div class="calendar-grid" id="calendarGrid"></div>
+            </div>
+            <div style="margin-top: 2rem; padding: 1.5rem; background: var(--bg-light); border-radius: 8px;">
+                <h3>Month Names</h3>
+                <p style="color: var(--text-light); margin-bottom: 1rem;">Each metric month represents a phase of the year:</p>
+                <div class="grid">
+                    <div><strong>Renewal</strong> - January</div>
+                    <div><strong>Awaken</strong> - February</div>
+                    <div><strong>Bloom</strong> - March</div>
+                    <div><strong>Thrive</strong> - April</div>
+                    <div><strong>Radiate</strong> - May</div>
+                    <div><strong>Sustain</strong> - June</div>
+                    <div><strong>Gather</strong> - July</div>
+                    <div><strong>Reflect</strong> - August</div>
+                    <div><strong>Diminish</strong> - September</div>
+                    <div><strong>Restore</strong> - October</div>
+                </div>
+            </div>
+        </section>
 
-    <p><strong>Date:</strong></p>
-    <ul>
-      <li>Traditional January ≈ Renewal (mMonth 01)</li>
-      <li>Traditional February ≈ Awaken (mMonth 02)</li>
-      <li>... etc.</li>
-    </ul>
+        <!-- About Section -->
+        <section id="about">
+            <h2>What is Metric Time?</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>Decimal-Based</h3>
+                    <p>Metric Time divides the day into 10 metric hours, each containing 100 metric minutes. This decimal structure makes mental math and conversions intuitive and straightforward.</p>
+                </div>
+                <div class="card">
+                    <h3>Digital-Friendly</h3>
+                    <p>The decimal system aligns perfectly with digital systems and automation. No more irregular month lengths or complex leap year calculations.</p>
+                </div>
+                <div class="card">
+                    <h3>Global Coordination</h3>
+                    <p>A unified timekeeping system eliminates confusion across cultures and industries, making international coordination seamless and efficient.</p>
+                </div>
+            </div>
 
-    <h2>Join the Movement</h2>
-    <p>This isn’t just a novelty—it’s a chance to rethink time itself. We're building apps, calculators, widgets, clocks, and a community. Stay tuned for:</p>
-    <ul>
-      <li>Mobile and web apps</li>
-      <li>Printable calendars and clock faces</li>
-      <li>Interactive conversion tools</li>
-    </ul>
-    <p><strong>Website:</strong> Coming soon</p>
-    <p><strong>Follow:</strong> #MetricTime on socials</p>
-  </section>
+            <h3 style="margin-top: 2rem;">The Metric Time Structure</h3>
+            <div class="education-grid">
+                <div class="education-card">
+                    <h4>1 Day</h4>
+                    <p>= 10 mHours<br>= 1,000 mMinutes<br>= 100,000 mSeconds</p>
+                </div>
+                <div class="education-card">
+                    <h4>1 mHour</h4>
+                    <p>= 100 mMinutes<br>= 2 hours 24 minutes<br>= 8,640 traditional seconds</p>
+                </div>
+                <div class="education-card">
+                    <h4>1 mMinute</h4>
+                    <p>= 100 mSeconds<br>= 1 minute 26.4 seconds<br>= 86.4 traditional seconds</p>
+                </div>
+                <div class="education-card">
+                    <h4>1 mSecond</h4>
+                    <p>= 0.864 traditional seconds<br>= 864 milliseconds</p>
+                </div>
+            </div>
+        </section>
 
-  <footer>
-    &copy; 2025 Metric Time Initiative. All rights reserved.
-  </footer>
+        <!-- Education Section -->
+        <section id="education">
+            <h2>Learn More</h2>
+            
+            <h3>Metric Calendar Structure</h3>
+            <p style="margin-bottom: 1.5rem; color: var(--text-light);">
+                The Metric Calendar reorganizes the year into 10 months of equal length, with a consistent work-rest rhythm in each month.
+            </p>
+            
+            <div class="card" style="margin-bottom: 2rem;">
+                <h3>The mMonth Rhythm</h3>
+                <p style="margin-bottom: 1rem;">Each metric month follows this pattern:</p>
+                <ul style="margin-left: 2rem; color: var(--text-light);">
+                    <li><strong>6-day mWeeks:</strong> 2 rest days + 4 work days</li>
+                    <li><strong>6 mWeeks per month:</strong> Creates 36-day months</li>
+                    <li><strong>Bonus rest days:</strong> 37-day months include an extra rest day</li>
+                    <li><strong>Leap years:</strong> Handled with one intercalary day</li>
+                </ul>
+            </div>
+
+            <h3>Conversion Examples</h3>
+            <div class="grid">
+                <div class="card">
+                    <h4 style="color: var(--primary);">Athletic Timing</h4>
+                    <p>Usain Bolt's 100m world record:<br><strong>9.58 seconds = 11.08 mSeconds</strong></p>
+                </div>
+                <div class="card">
+                    <h4 style="color: var(--primary);">Daily Events</h4>
+                    <p>Lunch at noon:<br><strong>12:00 PM = 5.00 mHours</strong></p>
+                </div>
+                <div class="card">
+                    <h4 style="color: var(--primary);">Work Day</h4>
+                    <p>8-hour work day:<br><strong>8 hours = 3.33 mHours</strong></p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2rem;">Why Adopt Metric Time?</h3>
+            <div class="education-grid">
+                <div class="education-card">
+                    <h4>For Individuals</h4>
+                    <p>Clear and predictable work-rest rhythm. Intuitive date and time notation. Easier planning and vacation cycles.</p>
+                </div>
+                <div class="education-card">
+                    <h4>For Technology</h4>
+                    <p>Better suited to digital systems. Eliminates uneven month lengths. Universally applicable across languages.</p>
+                </div>
+                <div class="education-card">
+                    <h4>For Society</h4>
+                    <p>Cross-cultural resonance. Anchors seasonal events to fixed points. Supports global coordination.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Metric Time Initiative. Building a better way to measure time.</p>
+            <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.7;">Metric Time • Metric Calendar • Global Coordination</p>
+        </div>
+    </footer>
+
+    <script>
+        // ========================================
+        // Metric Time Conversion Functions
+        // ========================================
+
+        // Convert traditional time (HH:MM:SS) to metric time
+        function traditionalToMetric(hours, minutes, seconds) {
+            const totalSeconds = hours * 3600 + minutes * 60 + seconds;
+            const metricSeconds = totalSeconds / 0.864;
+            const metricMinutes = metricSeconds / 100;
+            const metricHours = metricMinutes / 100;
+            return metricHours;
+        }
+
+        // Convert metric time to traditional time (HH:MM:SS)
+        function metricToTraditional(metricHours) {
+            const metricMinutes = metricHours * 100;
+            const metricSeconds = metricMinutes * 100;
+            const totalSeconds = metricSeconds * 0.864;
+            
+            const hours = Math.floor(totalSeconds / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = Math.floor(totalSeconds % 60);
+            
+            return { hours, minutes, seconds };
+        }
+
+        // Format time values with leading zeros
+        function padZero(num) {
+            return String(num).padStart(2, '0');
+        }
+
+        // Format metric time with proper notation
+        function formatMetricTime(metricHours) {
+            const hours = Math.floor(metricHours);
+            const remaining = (metricHours - hours) * 100;
+            const minutes = Math.floor(remaining);
+            return `${hours}.${padZero(minutes)}m`;
+        }
+
+        // ========================================
+        // Live Time Display
+        // ========================================
+
+        function updateLiveTime() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+
+            // Calculate metric time
+            const metricHours = traditionalToMetric(hours, minutes, seconds);
+            
+            // Update display
+            document.getElementById('metricTime').textContent = formatMetricTime(metricHours);
+            document.getElementById('traditionalTime').textContent = 
+                `${padZero(hours)}:${padZero(minutes)}:${padZero(seconds)}`;
+            
+            // Update dates
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('traditionalDate').textContent = now.toLocaleDateString('en-US', options);
+            
+            // Calculate metric date (simplified - day of year mapping)
+            const dayOfYear = Math.floor((now - new Date(now.getFullYear(), 0, 0)) / 86400000);
+            const metricMonth = Math.floor((dayOfYear - 1) / 36.5) + 1;
+            const metricDay = Math.floor(((dayOfYear - 1) % 36.5) + 1);
+            const monthNames = ['Renewal', 'Awaken', 'Bloom', 'Thrive', 'Radiate', 'Sustain', 'Gather', 'Reflect', 'Diminish', 'Restore'];
+            document.getElementById('metricDate').textContent = `${monthNames[metricMonth - 1]} ${padZero(metricDay)}`;
+        }
+
+        // Update live time every second
+        updateLiveTime();
+        setInterval(updateLiveTime, 1000);
+
+        // ========================================
+        // Time Converter
+        // ========================================
+
+        const tradInput = document.getElementById('tradInput');
+        const metricInput = document.getElementById('metricInput');
+        const conversionResult = document.getElementById('conversionResult');
+
+        tradInput.addEventListener('input', function() {
+            const value = this.value.trim();
+            if (!value) {
+                conversionResult.innerHTML = '';
+                metricInput.value = '';
+                return;
+            }
+
+            const parts = value.split(':');
+            if (parts.length === 3) {
+                const hours = parseInt(parts[0]) || 0;
+                const minutes = parseInt(parts[1]) || 0;
+                const seconds = parseInt(parts[2]) || 0;
+
+                if (hours >= 0 && hours < 24 && minutes >= 0 && minutes < 60 && seconds >= 0 && seconds < 60) {
+                    const metricHours = traditionalToMetric(hours, minutes, seconds);
+                    metricInput.value = formatMetricTime(metricHours);
+                    
+                    conversionResult.innerHTML = `
+                        <div class="result-box">
+                            <p>${value} = ${formatMetricTime(metricHours)}</p>
+                        </div>
+                    `;
+                }
+            }
+        });
+
+        metricInput.addEventListener('input', function() {
+            const value = this.value.trim().replace('m', '');
+            if (!value) {
+                conversionResult.innerHTML = '';
+                tradInput.value = '';
+                return;
+            }
+
+            const metricHours = parseFloat(value);
+            if (!isNaN(metricHours) && metricHours >= 0 && metricHours < 10) {
+                const { hours, minutes, seconds } = metricToTraditional(metricHours);
+                const formatted = `${padZero(hours)}:${padZero(minutes)}:${padZero(seconds)}`;
+                tradInput.value = formatted;
+                
+                conversionResult.innerHTML = `
+                    <div class="result-box">
+                        <p>${formatMetricTime(metricHours)} = ${formatted}</p>
+                    </div>
+                `;
+            }
+        });
+
+        // ========================================
+        // Metric Calendar Generation
+        // ========================================
+
+        const monthNames = ['Renewal', 'Awaken', 'Bloom', 'Thrive', 'Radiate', 'Sustain', 'Gather', 'Reflect', 'Diminish', 'Restore'];
+        const calendarGrid = document.getElementById('calendarGrid');
+
+        // Generate calendar for all 10 months
+        for (let month = 1; month <= 10; month++) {
+            const daysInMonth = month === 10 ? 37 : 36; // Last month has 37 days
+            const monthColumn = document.createElement('div');
+            monthColumn.className = 'month-column';
+
+            const header = document.createElement('div');
+            header.className = 'month-header';
+            header.innerHTML = `<div>${monthNames[month - 1]}</div><div style="font-size: 0.8rem; opacity: 0.8;">Month ${month}</div>`;
+            monthColumn.appendChild(header);
+
+            const daysContainer = document.createElement('div');
+            daysContainer.className = 'month-days';
+
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayEl = document.createElement('div');
+                dayEl.className = 'day';
+                dayEl.textContent = day;
+
+                // Determine if it's a work or rest day
+                // Pattern: 2 rest, 4 work, repeat
+                const dayInWeek = ((day - 1) % 6) + 1;
+                if (dayInWeek <= 2) {
+                    dayEl.classList.add('rest');
+                } else {
+                    dayEl.classList.add('work');
+                }
+
+                // Last day of 37-day months is rest
+                if (day === daysInMonth && daysInMonth === 37) {
+                    dayEl.classList.remove('work');
+                    dayEl.classList.add('rest');
+                }
+
+                dayEl.addEventListener('mouseover', function() {
+                    const dayType = this.classList.contains('rest') ? 'Rest Day' : 'Work Day';
+                    this.title = `${monthNames[month - 1]} ${padZero(day)} - ${dayType}`;
+                });
+
+                daysContainer.appendChild(dayEl);
+            }
+
+            monthColumn.appendChild(daysContainer);
+            calendarGrid.appendChild(monthColumn);
+        }
+
+        // ========================================
+        // Smooth Scroll for Navigation
+        // ========================================
+
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
 </body>
 </html>

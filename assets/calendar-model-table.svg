@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="760" viewBox="0 0 1500 760" role="img" aria-labelledby="title desc">
+<title id="title">Metric Calendar formal model</title>
+<desc id="desc">A table showing 10 metric months, alternating 36 and 37 days, with six metric weeks and Bonus Rest Days.</desc>
+<defs>
+<style>
+  .bg{fill:#fbfaf7}
+  .card{fill:#fff;stroke:#d8dde8;stroke-width:2}
+  .navy{fill:#0b1f3a}
+  .muted{fill:#5b6472}
+  .gold{fill:#d9a441}
+  .row{fill:#fffaf0}
+  .line{stroke:#d8dde8;stroke-width:2}
+  .h1{font-family:Inter,Aptos,Arial,sans-serif;font-size:44px;font-weight:850;fill:#0b1f3a}
+  .sub{font-family:Inter,Aptos,Arial,sans-serif;font-size:20px;font-weight:600;fill:#5b6472}
+  .th{font-family:Inter,Aptos,Arial,sans-serif;font-size:18px;font-weight:850;fill:#0b1f3a}
+  .td{font-family:Inter,Aptos,Arial,sans-serif;font-size:18px;font-weight:600;fill:#111827}
+  .small{font-family:Inter,Aptos,Arial,sans-serif;font-size:15px;font-weight:700;fill:#5b6472}
+</style>
+</defs>
+<rect class="bg" width="1500" height="760" rx="32"/>
+<text x="60" y="70" class="h1">Metric Calendar model</text>
+<text x="60" y="106" class="sub">Ten metric months · six metric weeks per month · Bonus Rest Days every second month</text>
+
+<rect x="60" y="150" width="1380" height="500" rx="28" class="card"/>
+<text x="105" y="200" class="th">Metric month</text>
+<text x="390" y="200" class="th">Days</text>
+<text x="570" y="200" class="th">Structure</text>
+<text x="1060" y="200" class="th">Final date</text>
+<line x1="95" y1="225" x2="1405" y2="225" class="line"/>
+
+<g class="td">
+  <text x="115" y="265">01</text><text x="400" y="265">36</text><text x="570" y="265">6 metric weeks</text><text x="1060" y="265">2026-01-36</text>
+  <rect x="90" y="286" width="1320" height="36" rx="12" class="row"/>
+  <text x="115" y="312">02</text><text x="400" y="312">37</text><text x="570" y="312">6 metric weeks + 37th Day: Bonus Rest Day</text><text x="1060" y="312">2026-02-37</text>
+  <text x="115" y="359">03</text><text x="400" y="359">36</text><text x="570" y="359">6 metric weeks</text><text x="1060" y="359">2026-03-36</text>
+  <rect x="90" y="380" width="1320" height="36" rx="12" class="row"/>
+  <text x="115" y="406">04</text><text x="400" y="406">37</text><text x="570" y="406">6 metric weeks + 37th Day: Bonus Rest Day</text><text x="1060" y="406">2026-04-37</text>
+  <text x="115" y="453">05</text><text x="400" y="453">36</text><text x="570" y="453">6 metric weeks</text><text x="1060" y="453">2026-05-36</text>
+  <rect x="90" y="474" width="1320" height="36" rx="12" class="row"/>
+  <text x="115" y="500">06</text><text x="400" y="500">37</text><text x="570" y="500">6 metric weeks + 37th Day: Bonus Rest Day</text><text x="1060" y="500">2026-06-37</text>
+  <text x="115" y="547">07</text><text x="400" y="547">36</text><text x="570" y="547">6 metric weeks</text><text x="1060" y="547">2026-07-36</text>
+  <rect x="90" y="568" width="1320" height="36" rx="12" class="row"/>
+  <text x="115" y="594">08</text><text x="400" y="594">37</text><text x="570" y="594">6 metric weeks + 37th Day: Bonus Rest Day</text><text x="1060" y="594">2026-08-37</text>
+  <text x="115" y="641">09</text><text x="400" y="641">36</text><text x="570" y="641">6 metric weeks</text><text x="1060" y="641">2026-09-36</text>
+</g>
+
+<rect x="60" y="670" width="430" height="60" rx="20" fill="#0b1f3a"/>
+<text x="88" y="707" font-family="Inter,Aptos,Arial,sans-serif" font-size="20" font-weight="850" fill="#fff">10: 37 days · New Year’s Eve</text>
+<rect x="515" y="670" width="430" height="60" rx="20" fill="#0b1f3a"/>
+<text x="543" y="707" font-family="Inter,Aptos,Arial,sans-serif" font-size="20" font-weight="850" fill="#fff">Leap years end at 10-38</text>
+<rect x="970" y="670" width="470" height="60" rx="20" fill="#fffaf0" stroke="#e4d6aa" stroke-width="2"/>
+<text x="998" y="707" font-family="Inter,Aptos,Arial,sans-serif" font-size="20" font-weight="850" fill="#0b1f3a">g2026-01-01 = 2026-01-01</text>
+</svg>

@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Metric Calendar | FAQ</title>
+  <meta name="description" content="Frequently asked questions about the Metric Calendar framework, six-day metric weeks, Bonus Rest Days, holidays, salary, and implementation.">
+  <meta name="author" content="J. Fisher / MetricCalendar.org">
+  <meta property="og:title" content="Metric Calendar | FAQ">
+  <meta property="og:description" content="Frequently asked questions about the Metric Calendar framework, six-day metric weeks, Bonus Rest Days, holidays, salary, and implementation.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container navbar">
+    <a class="brand" href="index.html" aria-label="Metric Calendar home">
+      <img src="assets/logo-mark.svg" alt="" width="44" height="44">
+      <span>Metric Calendar</span>
+    </a>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="index.html" >Home</a>
+      <a href="converter.html" >Converter</a>
+      <a href="rationale.html" >Literature &amp; Rationale</a>
+      <a href="faq.html" aria-current='page'>FAQ</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero">
+    <div class="container">
+      <span class="kicker">Frequently asked questions</span>
+      <h1>FAQ</h1>
+      <p class="lead">Answers to the most likely objections and implementation questions about the Metric Calendar.</p>
+    </div>
+  </section>
+
+  <section class="section tight">
+    <div class="container faq-list">
+      <details open>
+        <summary>What is the Metric Calendar?</summary>
+        <p>Metric Calendar is a 10-month calendar framework. Each month contains six six-day metric weeks. Each metric week contains four Focus/Work Days followed by two Rest Days. Every even-numbered month has one Bonus Rest Day outside the metric week cycle.</p>
+      </details>
+
+      <details>
+        <summary>Does it start on January 1?</summary>
+        <p>Yes. The conversion model is designed for practical adoption: <strong>gYYYY-01-01 = YYYY-01-01</strong>. In a standard year, <strong>gYYYY-12-31 = YYYY-10-37</strong>. In a leap year, the final day is <strong>YYYY-10-38</strong>.</p>
+      </details>
+
+      <details>
+        <summary>Why 10 months?</summary>
+        <p>Ten months gives the year a simple decimal structure. It supports clear planning cycles while avoiding the uneven month lengths of the Gregorian calendar.</p>
+      </details>
+
+      <details>
+        <summary>Why a six-day metric week instead of a seven-day week?</summary>
+        <p>The six-day metric week creates a consistent rhythm: four Focus/Work Days followed by two Rest Days. It is designed around human recovery and organizational planning rather than preserving the inherited seven-day cycle.</p>
+      </details>
+
+      <details>
+        <summary>What is a Bonus Rest Day?</summary>
+        <p>A Bonus Rest Day is the 37th day of every even-numbered month. It belongs to the month but sits outside the regular six-day metric week cycle.</p>
+      </details>
+
+      <details>
+        <summary>What happens in leap years?</summary>
+        <p>The Metric Calendar uses the Gregorian leap-year rule. In leap years, metric month 10 has 38 days. The final day, <strong>YYYY-10-38</strong>, is Leap Day / New Year’s Eve.</p>
+      </details>
+
+      <details>
+        <summary>What happens to holidays?</summary>
+        <p>The Metric Calendar does not abolish cultural, religious, or statutory holidays. They can be mapped separately, much as multiple cultural and religious calendars already coexist within public life.</p>
+      </details>
+
+      <details>
+        <summary>What happens to birthdays?</summary>
+        <p>Birthdays can be converted by date using the converter. During any transition period, Gregorian and Metric dates should be shown side-by-side to avoid confusion.</p>
+      </details>
+
+      <details>
+        <summary>Would salaried workers be paid less?</summary>
+        <p>No. The framework assumes salaried compensation should not be reduced simply because work is organized into a healthier rhythm.</p>
+      </details>
+
+      <details>
+        <summary>What about hourly workers?</summary>
+        <p>Hourly, shift-based, and essential-service workplaces would require sector-specific implementation models that preserve fair pay, labour protections, and service coverage.</p>
+      </details>
+
+      <details>
+        <summary>What about essential services?</summary>
+        <p>Healthcare, transit, emergency services, utilities, hospitality, manufacturing, and other continuous services would use rotating schedules, just as many do today.</p>
+      </details>
+
+      <details>
+        <summary>Is productivity guaranteed?</summary>
+        <p>No. The Metric Calendar is designed to support productivity without burnout, but outcomes depend on implementation. Research on shorter workweeks suggests the best results occur when organizations redesign meetings, workflows, coverage, and expectations.</p>
+      </details>
+
+      <details>
+        <summary>Is this meant to replace the Gregorian calendar immediately?</summary>
+        <p>No. The first practical use is as an organizational calendar framework and planning overlay. Broader civil reform would require far more public discussion, research, and institutional adoption.</p>
+      </details>
+
+      <details>
+        <summary>Can others use the framework?</summary>
+        <p>Yes. The framework is shared for common public use with attribution to <strong>J. Fisher / MetricCalendar.org</strong>.</p>
+      </details>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer-grid">
+    <div>
+      <p><strong>Metric Calendar</strong></p>
+      <p>The Metric Calendar framework is shared for common public use with attribution to <strong>J. Fisher / MetricCalendar.org</strong>.</p>
+    </div>
+    <div>
+      <p><a href="index.html">Home</a> · <a href="converter.html">Converter</a> · <a href="rationale.html">Literature</a> · <a href="faq.html">FAQ</a></p>
+    </div>
+  </div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>

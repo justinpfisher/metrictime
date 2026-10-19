@@ -24,3 +24,7 @@ Static GitHub Pages site for MetricCalendar.org.
 - Public copy uses "metric month", "metric week", and "metric day".
 
 Attribution: J. Fisher / MetricCalendar.org.
+
+## Development location
+
+Use the GMKtec Windows checkout by default for site edits, static preview and any local validation. Do not commission GitHub cloud development/agent jobs for work the workstation can do. Keep GitHub Pages deployment on GitHub; this public repository must not be attached to a personal self-hosted Actions runner. This repo has no dedicated application CI workflow.

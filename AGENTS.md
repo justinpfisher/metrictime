@@ -1,0 +1,8 @@
+# Metric Time — execution instructions
+
+- This public static GitHub Pages repository is distinct from the current canonical `justinpfisher/metriccalendar` project. Confirm which repository is intended before changing site content or domain behaviour; do not assume they are interchangeable.
+- Develop and inspect changes first on the owner's existing GMKtec Windows checkout, normally beneath `C:\Projects\` when present. Validate HTML/CSS/JavaScript and preview locally; do not create remote/cloud coding agents or unnecessary hosted build jobs.
+- Keep source and review in GitHub. This repository currently has **no custom application Actions workflow**. Its GitHub Pages site deployments run on GitHub-managed infrastructure; for a public repository, standard Pages runs do not consume private-repository billed runner minutes.
+- Do not connect personal GMKtec, LCRS, Comparative or thefish self-hosted runners to this public repository. Public pull requests must not execute on an owner's personal computer. Do not introduce paid larger runners, new Actions CI, dependencies or credentials without demonstrated need.
+- Preserve existing domain/CNAME and static assets unless explicitly asked to change them. Use Canadian English, keep changes proportionate, and distinguish source edits, tests, Pages deployment and live verification.
+- If this Chat/connector cannot access the actual GMKtec, say so; checks in a separate environment do not count as local workstation execution. Authorised changes include appropriate tests, merge, release and live verification where access permits, without a separate routine go-live approval.
